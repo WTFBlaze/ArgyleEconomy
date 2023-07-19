@@ -1,0 +1,78 @@
+name: ArgyleEconomy
+version: '${project.version}'
+main: me.wtfblaze.ArgyleEconomy
+api-version: '1.20'
+prefix: ArgyleEconomy
+softdepend:
+  - PlaceholderAPI
+  - Essentials
+authors: [WTFBlaze]
+description: ArgyleEconomy. A new economy plugin for your servers needs
+permissions:
+  argyle_econ.*:
+    default: false
+    description: the ultimate permission giving access to every command
+    children:
+      - argyle_econ.pay
+      - argyle_econ.balance
+      - argyle_econ.balance.others
+      - argyle_econ.eco
+      - argyle_econ.set
+      - argyle_econ.reset
+  argyle_econ.user:
+    default: false
+    description: the permission to give all user based permissions to non admins
+    children:
+      - argyle_econ.pay
+      - argyle_econ.balance
+      - argyle_econ.eco
+  argyle_econ.admin:
+    default: false
+    description: the permission to give all admin based permissions
+    children:
+      - argyle_econ.eco
+      - argyle_econ.set
+      - argyle_econ.reset
+      - argyle_econ.balance.others
+  argyle_econ.pay:
+    description: permission to allow players to pay each other
+    default: op
+  argyle_econ.balance:
+    description: permission to view your own balance
+    default: op
+  argyle_econ.balance.others:
+    description: permission to view the balance of other players
+    default: op
+  argyle_econ.eco:
+    description: permission to use /aeco command
+    default: op
+  argyle_econ.set:
+    description: permission to set the balance of players
+    default: op
+  argyle_econ.reset:
+    description: reset a players balance to 0
+    default: op
+commands:
+  abalance:
+    description: view the balance of yourself or others
+    usage: /abalance [player]
+    permission: argyle_econ.balance
+    aliases:
+      - balance
+      - abal
+      - bal
+      - wallet
+  apay:
+    description: pay other players
+    permission: argyle_econ.pay
+    usage: /apay [player]
+    aliases:
+      - pay
+  aeco:
+    description: core command for admin commands
+    usage: /aeco
+    permission: argyle_econ.eco
+    aliases:
+      - aeconomy
+      - eco
+      - economy
