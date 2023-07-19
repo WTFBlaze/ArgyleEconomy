@@ -58,7 +58,7 @@ allprojects {
 	}
 ...
 dependencies {
-	        implementation 'com.github.WTFBlaze:ArgyleEconomy:-SNAPSHOT'
+	        implementation 'com.github.WTFBlaze:ArgyleEconomy:{RELEASE-VERSION}'
 	}
 ```
 
