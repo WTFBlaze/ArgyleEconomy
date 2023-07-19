@@ -1,17 +1,22 @@
 package me.wtfblaze;
 
-import me.wtfblaze.commands.BalanceCommand;
-import me.wtfblaze.commands.EcoCommand;
-import me.wtfblaze.commands.PayCommand;
-import net.md_5.bungee.api.ChatColor;
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
+import me.wtfblaze.commands.BalanceCommand;
+import me.wtfblaze.commands.EcoCommand;
+import me.wtfblaze.commands.PayCommand;
+import me.wtfblaze.shoptguiplus.ArgyleEconomyProvider;
+import me.wtfblaze.shoptguiplus.ShopGUIPlusHook;
+import net.md_5.bungee.api.ChatColor;
 
 public final class ArgyleEconomy extends JavaPlugin {
 
     private Database db;
+    private ArgyleEconomyProvider provider;
+    private ShopGUIPlusHook hook;
 
     @Override
     public void onEnable() {
@@ -22,6 +27,7 @@ public final class ArgyleEconomy extends JavaPlugin {
         db = new SQLite(this);
         db.load();
         ArgyleEconomyAPI.initialize(this);
+        this.provider = new ArgyleEconomyProvider(this);
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             new Placeholders(this).register();
         else
@@ -29,6 +35,8 @@ public final class ArgyleEconomy extends JavaPlugin {
         new BalanceCommand(this);
         new PayCommand(this);
         new EcoCommand(this);
+        
+        shopGUIPlusHook();
     }
 
     public Database getDatabase() {
@@ -37,5 +45,18 @@ public final class ArgyleEconomy extends JavaPlugin {
 
     public String formatColors(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
+    }
+    
+    public ArgyleEconomyProvider getProvider() { return provider; }
+    
+    private void shopGUIPlusHook()
+    {
+    	if(Bukkit.getPluginManager().getPlugin("ShopGUIPlus") != null)
+    	{
+    		this.hook = new ShopGUIPlusHook(this);
+    		Bukkit.getPluginManager().registerEvents(hook, this);
+    		this.getLogger().info("ShopGUI+ integration successful!");
+    	}
+    	else this.getLogger().warning("ShopGUI+ not found, integration skipped!");
     }
 }
