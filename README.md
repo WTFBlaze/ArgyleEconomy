@@ -44,7 +44,7 @@ An open sourced economy plugin designed to work and be compatible with Essential
 <dependency>
 	    <groupId>com.github.WTFBlaze</groupId>
 	    <artifactId>ArgyleEconomy</artifactId>
-	    <version>-SNAPSHOT</version>
+	    <version>{RELEASE-VERSION}</version>
 	</dependency>
 ```
 
